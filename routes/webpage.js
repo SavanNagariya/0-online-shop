@@ -13,3 +13,5 @@ router.get("/my-orders", (req, res) => {
 router.get("/shopping-cart", (req, res) => {
   res.render("shopping-cart");
 });
+
+module.exports = router;
