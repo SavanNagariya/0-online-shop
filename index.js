@@ -1,5 +1,4 @@
 const express = require("express");
-const { Db } = require("mongodb");
 const path = require("path");
 const db = require("./data/database");
 

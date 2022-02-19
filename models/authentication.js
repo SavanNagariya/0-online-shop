@@ -14,9 +14,6 @@ postLogin = async (req, res) => {
   if (enteredEmail !== user.email || !password) {
     return res.redirect("/login");
   }
-  console.log(enteredEmail);
-  console.log(user.email);
-
   res.redirect("/my-orders");
 };
 getSignup = (req, res) => {
