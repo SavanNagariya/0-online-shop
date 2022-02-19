@@ -1,4 +1,4 @@
 main h2{
     padding: 2rem 0;
-    padding-left: 2rem;
+    min-height: 100vh;
 }
