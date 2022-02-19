@@ -4,13 +4,25 @@ const bcrypt = require("bcryptjs");
 getLogin = (req, res) => {
   res.render("login");
 };
-postLogin = (req, res) => {
-  res.render("login");
+postLogin = async (req, res) => {
+  const enteredEmail = req.body.email;
+  const enteredPassword = req.body.password;
+
+  const user = await db.getDb().collection("users").findOne();
+  const password = await bcrypt.compare(enteredPassword, user.password);
+
+  if (enteredEmail !== user.email || !password) {
+    return res.redirect("/login");
+  }
+  console.log(enteredEmail);
+  console.log(user.email);
+
+  res.redirect("/my-orders");
 };
 getSignup = (req, res) => {
   res.render("signup");
 };
-async function postSignup(req, res) {
+postSignup = async (req, res) => {
   const enteredEmail = req.body.email;
   const enteredConfirmEmail = req.body.confirmEmail;
   const enteredPassword = req.body.password;
@@ -22,6 +34,7 @@ async function postSignup(req, res) {
   if (
     !enteredEmail ||
     !enteredPassword ||
+    enteredPassword.trim().length < 6 ||
     !enteredConfirmEmail ||
     !enteredName ||
     !enteredPostalcode ||
