@@ -4,15 +4,15 @@
 <body>
     <%- include('shared/header.ejs') %> 
     <main>
-        <form id="signup-form" action="" method="POST">
+        <form id="signup-form" action="/login" method="POST">
             <h2>Signup</h2>
             <div id="form-item">
                 <label for="email">Email</label>
                 <input id="email" type="email" name="email" required>
             </div>
             <div id="form-item">
-                <label for="Confirm-email">Confirm Email</label>
-                <input id="Confirm-email" type="email" name="Confirm-email" required>
+                <label for="ConfirmEmail">Confirm Email</label>
+                <input id="ConfirmEmail" type="email" name="ConfirmEmail" required>
             </div>
             <div id="form-item">
                 <label for="password">Password</label>
@@ -38,12 +38,26 @@
             <div id="form-item">
                 <button class="btn">Create Account</button>
             </div>
+            <div id="form-item">
+                You have account then click <a class="login-link" href="/login">Login</a>.
+            </div>
         </form>
     </main>
 </body>
 </html>
 
 <style>
+.login-link{
+    padding: 4px;
+    margin: rem 0;
+    text-decoration: none;
+    color: white;
+    background-color: #00ce67;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: 300ms;
+}
 #signup-form{
     margin: 6.5rem auto;
     max-width: 40%;
