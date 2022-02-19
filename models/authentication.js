@@ -10,7 +10,7 @@ postLogin = (req, res) => {
 getSignup = (req, res) => {
   res.render("signup");
 };
-postSignup = async (req, res) => {
+async function postSignup(req, res) {
   const enteredEmail = req.body.email;
   const enteredConfirmEmail = req.body.confirmEmail;
   const enteredPassword = req.body.password;
@@ -19,7 +19,30 @@ postSignup = async (req, res) => {
   const enteredPostalcode = req.body.postalcode;
   const enteredCity = req.body.city;
 
-  await db.getDb().collection("signup").insertOne();
+  if (
+    !enteredEmail ||
+    !enteredPassword ||
+    !enteredConfirmEmail ||
+    !enteredName ||
+    !enteredPostalcode ||
+    !enteredStreet ||
+    !enteredCity ||
+    enteredEmail !== enteredConfirmEmail ||
+    !enteredEmail.includes("@")
+  ) {
+    return res.redirect("/signup");
+  }
+
+  const hashedPassword = await bcrypt.hash(enteredPassword, 12);
+
+  await db.getDb().collection("users").insertOne({
+    email: enteredEmail,
+    password: hashedPassword,
+    name: enteredName,
+    street: enteredStreet,
+    postalcode: enteredPostalcode,
+    city: enteredCity,
+  });
   res.redirect("/login");
 };
 

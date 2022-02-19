@@ -1,5 +1,7 @@
 const express = require("express");
+const { Db } = require("mongodb");
 const path = require("path");
+const db = require("./data/database");
 
 const app = express();
 
@@ -10,9 +12,11 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use(routeWebPage);
 app.use(routeAuth);
 
-app.listen(2000);
+db.connection().then(function () {
+  app.listen(2000);
+});
