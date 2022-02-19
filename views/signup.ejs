@@ -4,7 +4,76 @@
 <body>
     <%- include('shared/header.ejs') %> 
     <main>
-        <h2>Signup</h2>
+        <form id="signup-form" action="" method="POST">
+            <h2>Signup</h2>
+            <div id="form-item">
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" required>
+            </div>
+            <div id="form-item">
+                <label for="Confirm-email">Confirm Email</label>
+                <input id="Confirm-email" type="email" name="Confirm-email" required>
+            </div>
+            <div id="form-item">
+                <label for="password">Password</label>
+                <input id="password" type="password" name="password" required>
+            </div>
+            <hr>
+            <div id="form-item">
+                <label for="name">Full Name</label>
+                <input id="name" type="text" name="name" required>
+            </div>
+            <div id="form-item">
+                <label for="street">Street</label>
+                <input id="street" type="text" name="street" required>
+            </div>
+            <div id="form-item">
+                <label for="postalcode">Postal Code</label>
+                <input id="postalcode" type="number" name="postalcode" required>
+            </div>
+            <div id="form-item">
+                <label for="city">City</label>
+                <input id="city" type="text" name="city" required>
+            </div>
+            <div id="form-item">
+                <button class="btn">Create Account</button>
+            </div>
+        </form>
     </main>
 </body>
 </html>
+
+<style>
+#signup-form{
+    margin: 6.5rem auto;
+    max-width: 40%;
+    color: black;
+    background-color: white;
+    padding:1rem 3rem ;
+    border-radius: 1rem;
+    box-shadow: 2px 2px 4px rgb(160, 160, 160);
+}
+#form-item{
+    padding: 2%  0;
+}
+#form-item label{
+    display: block;
+    font-size: 17px;
+}
+#form-item input{
+    margin-top: 0.4rem;
+    width: 97%;
+    height: 2.2rem;
+    border-radius: 8px;
+    font-size: 20px;
+    padding: 1px 8px;
+    border: none;
+    background-color: rgb(230, 230, 230);
+    transition:400ms;
+}
+#form-item input:focus{
+    outline: none;
+    box-shadow: 1px 1px 8px rgb(160, 160, 160);
+    background-color: rgb(255, 255, 255); 
+}
+</style>
