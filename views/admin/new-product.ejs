@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../shared/head.ejs',{title:'Online Shop Admin | Add products'}) %> 
+<body>
+    <%- include('../shared/header.ejs') %> 
+    <main>
+        <form id="add-form" action="/admin/products" method="POST" enctype="multipart/form-data">
+             <h3>Add new product</h3>
+            <div id="form-item">
+                <label for="name">Title</label>
+                <input id="name" type="text" name="name" required>
+            </div>
+            <div id="form-item">
+                <label for="summary">Summary</label>
+                <input id="summary" type="text" name="summary" required>
+            </div>
+            <div id="form-item">
+                <label for="price">Price</label>
+                <input id="price" type="number" name="price" required>
+            </div>
+            <div id="form-item">
+                <label for="price">Price</label>
+                <textarea name="" id=""  rows="5"></textarea>
+            </div>
+            <div id="form-image">
+                <label for="price">Image</label>
+                <div>
+                    <img src="" alt="Product image">
+                    <input id="price" type="file" name="price" required>
+                </div>
+            </div>
+            <div id="form-item">
+                <button class="btn">Add</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
+<style>
+h3{
+    margin: 0.5rem 0;
+}
+#add-form{
+    margin: 6rem auto;
+    max-width: 40%;
+    color: black;
+    background-color: white;
+    padding:1rem 3rem ;
+    border-radius: 1rem;
+    box-shadow: 2px 2px 4px rgb(160, 160, 160);
+}
+#form-item{
+    padding: 1%  0;
+}
+#form-item label{
+    display: block;
+    font-size: 17px;
+}
+#form-item input, textarea{
+    margin-top: 0.4rem;
+    width: 97%;
+    min-height: 2rem;
+    border-radius: 8px;
+    font-size: 18px;
+    align-items: center;
+    padding: 1px 8px;
+    border: none;
+    background-color: rgb(230, 230, 230);
+    transition:400ms;
+}
+#form-item input:focus, textarea:focus{
+    outline: none;
+    box-shadow: 1px 1px 8px rgb(160, 160, 160);
+    background-color: rgb(255, 255, 255); 
+}
+
+</style>
