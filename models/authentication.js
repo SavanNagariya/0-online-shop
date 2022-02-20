@@ -8,10 +8,14 @@ postLogin = async (req, res) => {
   const enteredEmail = req.body.email;
   const enteredPassword = req.body.password;
 
-  const user = await db.getDb().collection("users").findOne();
+  const user = await db
+    .getDb()
+    .collection("users")
+    .findOne({ email: enteredEmail });
+
   const password = await bcrypt.compare(enteredPassword, user.password);
 
-  if (enteredEmail !== user.email || !password) {
+  if (!user.email || !password) {
     return res.redirect("/login");
   }
   req.session.user = { id: user._id, email: user.email };
