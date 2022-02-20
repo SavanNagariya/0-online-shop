@@ -7,7 +7,8 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const app = express();
 
 const routeAuth = require("./routes/auth");
-const routeWebPage = require("./routes/webpage");
+const routeUser = require("./routes/user");
+const routeAdmin = require("./routes/admin");
 
 const storeDb = new MongoDBStore({
   url: "mongodb://localhost:27017",
@@ -30,8 +31,9 @@ app.use(
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
-app.use(routeWebPage);
+app.use(routeUser);
 app.use(routeAuth);
+app.use(routeAdmin);
 
 db.connection().then(function () {
   app.listen(2000);

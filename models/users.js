@@ -1,18 +1,18 @@
 getHome = (req, res) => {
-  res.render("products");
+  res.render("user/products");
 };
 getProductDetails = (req, res) => {
-  res.render("product-details");
+  res.render("user/product-details");
 };
 getMyOrders = (req, res) => {
   if (!req.session.isAuthentication) {
     res.status(404).render("404");
     return;
   }
-  res.render("my-orders");
+  res.render("user/my-orders");
 };
 getShopCart = (req, res) => {
-  res.render("shopping-cart");
+  res.render("user/shopping-cart");
 };
 
 module.exports = {
