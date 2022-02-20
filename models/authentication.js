@@ -14,7 +14,11 @@ postLogin = async (req, res) => {
   if (enteredEmail !== user.email || !password) {
     return res.redirect("/login");
   }
-  res.redirect("/my-orders");
+  req.session.user = { id: user._id, email: user.email };
+  (req.session.isAuthentication = true),
+    req.session.save(() => {
+      res.redirect("/my-orders");
+    });
 };
 getSignup = (req, res) => {
   res.render("signup");
@@ -55,10 +59,16 @@ postSignup = async (req, res) => {
   });
   res.redirect("/login");
 };
+logout = (req, res) => {
+  req.session.user = null;
+  req.session.isAuthentication = false;
+  res.redirect("/");
+};
 
 module.exports = {
   getLogin: getLogin,
   postLogin: postLogin,
   getSignup: getSignup,
   postSignup: postSignup,
+  logout: logout,
 };
