@@ -7,9 +7,26 @@
         <h2 class="heading2">Product Details</h2>
         <section id="product-detail">
             <div>
-                <img src="" alt="">
+                <img src="/<%= product.filePath %>" alt="">
+            </div>
+            <div>
+                <h2><%= product.title %></h2>
+                <div><%= product.summary %></div>
+                <p><%= product.description %></p>
+                <div>M.R.P.: <b><%= product.price %>.00</b></div>
+                <div><button class="btn">Add to Cart</button></div>
             </div>
         </section>
     </main>
 </body>
 </html>
+<style>
+#product-detail{
+    display: flex;
+    gap: 3rem;
+}
+#product-detail img{
+    max-width: 35rem;
+    max-height: 35rem;
+}
+</style>

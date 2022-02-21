@@ -1,11 +1,19 @@
 const db = require("../data/database");
+const { ObjectId } = require("mongodb");
 
 getHome = async (req, res) => {
   const products = await db.getDb().collection("products").find().toArray();
   res.render("user/products", { products: products });
 };
-getProductDetails = (req, res) => {
-  res.render("user/product-details");
+getProductDetails = async (req, res) => {
+  const id = req.params.id;
+
+  const product = await db
+    .getDb()
+    .collection("products")
+    .findOne({ _id: ObjectId(id) });
+  console.log(id, product);
+  res.render("user/product-details", { product: product });
 };
 getMyOrders = (req, res) => {
   if (!req.session.isAuthentication) {
