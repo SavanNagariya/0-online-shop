@@ -7,23 +7,32 @@
         <h2 class="heading2">Our All Products</h2>
         <section class="product-section">
             <% for (product of products) { %> 
-            <div id="product-item">
-                <img src="/<%= product.filePath %>" alt="Product image">
-                <div>
-                    <div class="heading">
-                        <h3><%= product.title %></h3>
-                        <p>₹ <%= product.price %> </p>
+                <a href="">
+                    <div id="product-item">
+                        <img src="/<%= product.filePath %>" alt="Product image">
+                        <div>
+                            <div class="heading">
+                                <h3><%= product.title %></h3>
+                                <p>₹ <%= product.price %> </p>
+                            </div>
+                            <div class="summary"><%= product.summary %></div>
+                            <div class="text"><%= product.description %></div>
+                        </div>
                     </div>
-                    <div class="summary"><%= product.summary %></div>
-                    <div class="text"><%= product.description %></div>
-                </div>
-            </div>
+                </a>
            <% } %> 
         </section>  
     </main>
 </body>
 </html>
 <style>
+a{
+    text-decoration: none;
+    color: inherit;
+}
+#product-item:hover{
+    box-shadow: 3px 3px 12px rgb(160, 160, 160);
+}    
 #product-item .heading{
     padding: 5px 0;
     display: flex;

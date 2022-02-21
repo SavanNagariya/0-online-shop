@@ -11,7 +11,7 @@ header{
     align-items: center;
     justify-content: space-between;
     color: white;
-    backdrop-filter: blur(4px); 
+    backdrop-filter: blur(8px); 
      position: fixed;
      width: 80%;
     top: 0;
