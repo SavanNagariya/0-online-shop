@@ -1,5 +1,8 @@
-getHome = (req, res) => {
-  res.render("user/products");
+const db = require("../data/database");
+
+getHome = async (req, res) => {
+  const products = await db.getDb().collection("products").find().toArray();
+  res.render("user/products", { products: products });
 };
 getProductDetails = (req, res) => {
   res.render("user/product-details");

@@ -2,7 +2,6 @@ const db = require("../data/database");
 
 getAdminProducts = async (req, res) => {
   const products = await db.getDb().collection("products").find().toArray();
-  console.log(products.filePath);
   res.render("admin/products", { products: products });
 };
 getAdminProductUpdate = (req, res) => {

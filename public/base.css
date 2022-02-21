@@ -33,9 +33,9 @@ main .heading2{
     object-fit: cover; 
 }
 #product-item div{
-    padding: 0.6rem;
+    padding: 1rem;
 }
-#product-item div h3{
-    margin: 0.5rem 0;
+#product-item  h3{
+    margin: 0;
     font-size: 1.5rem;
 }
