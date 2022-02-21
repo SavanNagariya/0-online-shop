@@ -1,7 +1,9 @@
 const db = require("../data/database");
 
-getAdminProducts = (req, res) => {
-  res.render("admin/products");
+getAdminProducts = async (req, res) => {
+  const products = await db.getDb().collection("products").find().toArray();
+  console.log(products.filePath);
+  res.render("admin/products", { products: products });
 };
 getAdminProductUpdate = (req, res) => {
   res.render("admin/update-product");
@@ -13,22 +15,19 @@ getAdminAddProduct = (req, res) => {
   res.render("admin/new-product");
 };
 postAdminAddProduct = async (req, res) => {
+  const file = req.file;
   const enteredTitle = req.body.title;
   const enteredSummary = req.body.summary;
   const enteredPrice = req.body.price;
   const enteredDescription = req.body.description;
 
   if (
+    !file ||
     !enteredTitle ||
     !enteredSummary ||
     !enteredPrice ||
     !enteredDescription
   ) {
-    res.redirect("/admin/products/new");
-    return;
-  }
-  const file = req.file;
-  if (!file || file.length === 0) {
     res.redirect("/admin/products/new");
     return;
   }
