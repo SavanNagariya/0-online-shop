@@ -6,18 +6,23 @@ const storage = multer.diskStorage({
     cb(null, "images");
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.fieldname);
+    cb(null, Date.now() + "-" + file.originalname);
   },
 });
 
-const upload = multer({});
+const upload = multer({ storage: storage });
 const router = express.Router();
 
 const administration = require("../models/administration");
 
 router.get("/admin/products", administration.getAdminProducts);
-router.get("/admin/products/new", administration.getAdminAddProduct);
 router.get("/admin/update-product", administration.getAdminProductUpdate);
 router.get("/admin/orders", administration.getAdminOrders);
+router.get("/admin/products/new", administration.getAdminAddProduct);
+router.post(
+  "/admin/products/new",
+  upload.single("image"),
+  administration.postAdminAddProduct
+);
 
 module.exports = router;

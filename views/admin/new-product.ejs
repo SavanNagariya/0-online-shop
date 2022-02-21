@@ -4,11 +4,11 @@
 <body>
     <%- include('../shared/header.ejs') %> 
     <main>
-        <form id="add-form" action="/admin/products" method="POST" enctype="multipart/form-data">
+        <form id="add-form" action="" method="POST" enctype="multipart/form-data">
              <h3>Add new product</h3>
             <div id="form-item">
-                <label for="name">Title</label>
-                <input id="name" type="text" name="name" required>
+                <label for="title">Title</label>
+                <input id="title" type="text" name="title" required>
             </div>
             <div id="form-item">
                 <label for="summary">Summary</label>
@@ -19,8 +19,8 @@
                 <input id="price" type="number" name="price" required>
             </div>
             <div id="form-item">
-                <label for="price">Price</label>
-                <textarea name="" id=""  rows="5"></textarea>
+                <label for="description">Description</label>
+                <textarea name="description" id="description"  rows="5"></textarea>
             </div>
             <div id="form-image">
                 <label for="price">Image</label>
