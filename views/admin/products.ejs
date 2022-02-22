@@ -14,8 +14,14 @@
             <div id="product-item">
                 <img src="/<%= product.filePath %>" alt="Product image">
                 <div>
-                    <h3><%= product.title %></h3>
+                    <div class="heading">
+                        <h3><%= product.title %></h3>
+                        <p>₹ <%= product.price %> </p>
+                    </div>
+                    <div class="summary"><%= product.summary %></div>
+                    <div class="text"><%= product.description %></div>
                 </div>
+                <div><a href="/admin/update-product/<%= product._id %>" class="btn">Update</a></div>
             </div>
            <% } %> 
         </section>            
@@ -26,5 +32,17 @@
 a {
     text-decoration: none;
 }
-
+#product-item .heading{
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#product-item .summary{
+    padding: 0;
+}
+#product-item .text{
+    padding: 8px 0 0 0;
+    font-size: 0.7rem;
+}
 </style>

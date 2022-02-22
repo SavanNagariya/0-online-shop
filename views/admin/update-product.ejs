@@ -3,25 +3,31 @@
     <%- include('../shared/head.ejs',{title:'Online Shop Admin | Update'}) %> 
 <body>
     <%- include('../shared/header.ejs') %> 
-    <main>
-        <form id="add-form" action="" method="POST" enctype="multipart/form-data">
+    <main id="add-form">
+        <form  action="" method="POST" >
              <h3>Product Update Manage</h3>
             <div id="form-item">
                 <label for="title">Title</label>
-                <input id="title" type="text" name="title" required>
+                <input id="title" type="text" name="title" value="<%= product.title %>" required>
             </div>
             <div id="form-item">
                 <label for="summary">Summary</label>
-                <input id="summary" type="text" name="summary" required>
+                <input id="summary" type="text" name="summary" value="<%= product.summary %>" required>
             </div>
             <div id="form-item">
                 <label for="price">Price</label>
-                <input id="price" type="number" name="price" required>
+                <input id="price" type="number" name="price" value="<%= product.price %>" required>
             </div>
             <div id="form-item">
                 <label for="description">Description</label>
-                <textarea name="description" id="description"  rows="5"></textarea>
+                <textarea name="description" id="description"  rows="5"><%= product.description %></textarea>
             </div>
+            
+            <div id="form-item">
+                <button class="btn">Update details</button>
+            </div>
+        </form>
+        <form action="" method="POST" enctype="multipart/form-data">
             <div id="form-image">
                 <label for="price">Image</label>
                 <div>
@@ -30,7 +36,7 @@
                 </div>
             </div>
             <div id="form-item">
-                <button class="btn">Add</button>
+                <button class="btn">Update image</button>
             </div>
         </form>
     </main>

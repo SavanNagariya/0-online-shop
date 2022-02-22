@@ -16,7 +16,12 @@ const router = express.Router();
 const administration = require("../models/administration");
 
 router.get("/admin/products", administration.getAdminProducts);
-router.get("/admin/update-product", administration.getAdminProductUpdate);
+router.get("/admin/update-product/:id", administration.getAdminProductUpdate);
+router.post(
+  "/admin/update-product/:id",
+  upload.single("image"),
+  administration.postAdminProductUpdate
+);
 router.get("/admin/orders", administration.getAdminOrders);
 router.get("/admin/products/new", administration.getAdminAddProduct);
 router.post(
