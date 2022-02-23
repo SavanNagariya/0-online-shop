@@ -15,28 +15,37 @@ getAdminProductUpdate = async (req, res) => {
   res.render("admin/update-product", { product: product });
 };
 postAdminProductUpdate = async (req, res) => {
-  const id = ObjectId(req.params.id);
-  const title = req.body.title;
-  const summary = req.body.summary;
-  const price = req.body.price;
-  const description = req.body.description;
-  const file = req.file;
+  let file;
+  let path;
+  let url;
+  if (req.file) {
+    file = req.file.filename;
+    path = `images/${file}`;
+    url = `/images/${file}`;
+  }
 
-  const productUpdate = await db
-    .getDb()
-    .collection("products")
-    .updateOne(
-      { _id: id },
-      {
-        $set: {
-          title: title,
-          summary: summary,
-          price: price,
-          description: description,
-        },
-      }
-    );
+  const productData = {
+    title: req.body.title,
+    summary: req.body.summary,
+    price: req.body.price,
+    description: req.body.description,
+    filePath: file,
+  };
 
+  if (req.params.id) {
+    const id = ObjectId(req.params.id);
+
+    if (!file) {
+      delete productData.filePath;
+    }
+
+    await db
+      .getDb()
+      .collection("products")
+      .updateOne({ _id: id }, { $set: productData });
+  } else {
+    await db.getDb().collection("products").insertOne(productData);
+  }
   res.redirect("/admin/products");
 };
 

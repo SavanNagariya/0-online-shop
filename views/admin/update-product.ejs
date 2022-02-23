@@ -18,21 +18,16 @@
                 <label for="price">Price</label>
                 <input id="price" type="number" name="price" value="<%= product.price %>" required>
             </div>
+           
             <div id="form-item">
                 <label for="description">Description</label>
                 <textarea name="description" id="description"  rows="5"><%= product.description %></textarea>
             </div>
-            
             <div id="form-item">
-                <button class="btn">Update details</button>
-            </div>
-        </form>
-        <form action="" method="POST" enctype="multipart/form-data">
-            <div id="form-image">
                 <label for="price">Image</label>
                 <div>
                     <img id="preview-image" src="" alt="Product image">
-                    <input id="image" type="file" name="image" required>
+                    <input id="image" type="file" name="image">
                 </div>
             </div>
             <div id="form-item">
@@ -79,12 +74,5 @@
     box-shadow: 1px 1px 8px rgb(160, 160, 160);
     background-color: rgb(255, 255, 255); 
 }
-#form-image img{
-    padding-top: 8px;
-    width: 6rem;
-    height: 6rem;
-    object-fit: cover;
-    border-radius: 8px;
-    display: none;
-}
+
 </style>
