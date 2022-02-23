@@ -3,8 +3,10 @@ const { ObjectId } = require("mongodb");
 
 getAdminProducts = async (req, res) => {
   const products = await db.getDb().collection("products").find().toArray();
+
   res.render("admin/products", { products: products });
 };
+
 getAdminProductUpdate = async (req, res) => {
   const id = req.params.id;
   const product = await db
@@ -14,28 +16,20 @@ getAdminProductUpdate = async (req, res) => {
 
   res.render("admin/update-product", { product: product });
 };
-postAdminProductUpdate = async (req, res) => {
-  let file;
-  let path;
-  let url;
-  if (req.file) {
-    file = req.file.filename;
-    path = `images/${file}`;
-    url = `/images/${file}`;
-  }
 
+postAdminProductUpdate = async (req, res) => {
   const productData = {
     title: req.body.title,
     summary: req.body.summary,
     price: req.body.price,
     description: req.body.description,
-    filePath: file,
+    filePath: req.body.image,
   };
-
+  console.log(productData.filePath);
   if (req.params.id) {
     const id = ObjectId(req.params.id);
 
-    if (!file) {
+    if (!productData.filePath) {
       delete productData.filePath;
     }
 
@@ -52,11 +46,13 @@ postAdminProductUpdate = async (req, res) => {
 getAdminOrders = (req, res) => {
   res.render("admin/orders");
 };
+
 getAdminAddProduct = (req, res) => {
   res.render("admin/new-product");
 };
+
 postAdminAddProduct = async (req, res) => {
-  const file = req.file;
+  const file = req.file.filename;
   const enteredTitle = req.body.title;
   const enteredSummary = req.body.summary;
   const enteredPrice = req.body.price;
@@ -78,7 +74,7 @@ postAdminAddProduct = async (req, res) => {
     summary: enteredSummary,
     price: enteredPrice,
     description: enteredDescription,
-    filePath: file.path,
+    filePath: file,
   });
   res.redirect("/admin/products");
 };

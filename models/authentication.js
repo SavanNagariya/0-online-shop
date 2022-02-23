@@ -24,9 +24,11 @@ postLogin = async (req, res) => {
       res.redirect("/my-orders");
     });
 };
+
 getSignup = (req, res) => {
   res.render("signup");
 };
+
 postSignup = async (req, res) => {
   const enteredEmail = req.body.email;
   const enteredConfirmEmail = req.body.confirmEmail;
