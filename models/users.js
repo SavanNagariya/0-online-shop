@@ -12,7 +12,6 @@ getProductDetails = async (req, res) => {
     .getDb()
     .collection("products")
     .findOne({ _id: ObjectId(id) });
-  console.log(id, product);
   res.render("user/product-details", { product: product });
 };
 getMyOrders = (req, res) => {

@@ -1,12 +1,11 @@
 const express = require("express");
 const multer = require("multer");
+const uuid = require("uuid").v4;
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "images");
-  },
+  destination: "images",
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, uuid() + "-" + file.originalname);
   },
 });
 
