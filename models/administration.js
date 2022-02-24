@@ -18,14 +18,19 @@ getAdminProductUpdate = async (req, res) => {
 };
 
 postAdminProductUpdate = async (req, res) => {
+  // const updateData = Object.assign({});
+  let file;
+  if (req.file) {
+    file = req.file.filename;
+  }
   const productData = {
     title: req.body.title,
     summary: req.body.summary,
     price: req.body.price,
     description: req.body.description,
-    filePath: req.body.image,
+    filePath: file,
   };
-  console.log(productData.filePath);
+
   if (req.params.id) {
     const id = ObjectId(req.params.id);
 
