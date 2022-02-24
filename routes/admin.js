@@ -28,5 +28,6 @@ router.post(
   upload.single("image"),
   administration.postAdminAddProduct
 );
+router.post("/products", administration.deleteProduct);
 
 module.exports = router;

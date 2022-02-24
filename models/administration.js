@@ -84,6 +84,12 @@ postAdminAddProduct = async (req, res) => {
   res.redirect("/admin/products");
 };
 
+deleteProduct = (req, res) => {
+  const id = req.params.id;
+
+  res.render("admin/products");
+};
+
 module.exports = {
   getAdminProducts: getAdminProducts,
   getAdminProductUpdate: getAdminProductUpdate,
@@ -91,4 +97,5 @@ module.exports = {
   getAdminOrders: getAdminOrders,
   getAdminAddProduct: getAdminAddProduct,
   postAdminAddProduct: postAdminAddProduct,
+  deleteProduct: deleteProduct,
 };

@@ -21,7 +21,12 @@
                     <div class="summary"><%= product.summary %></div>
                     <div class="text"><%= product.description %></div>
                 </div>
-                <div><a href="/admin/update-product/<%= product._id %>" class="btn">Update</a></div>
+                <div class="btns">
+                    <a href="/admin/update-product/<%= product._id %>" class="btn">Update</a>
+                    <form action="/admin/products" method="POST">
+                        <a class="btn" href="<%= product._id %>"> Delete</a>
+                    </form>
+                </div>
             </div>
            <% } %> 
         </section>            
@@ -29,6 +34,14 @@
 </body>
 </html>
 <style>
+.btns{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.btns form a{
+    background-color: rgb(255, 74, 74);
+}
 a {
     text-decoration: none;
 }
