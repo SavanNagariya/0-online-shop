@@ -60,7 +60,7 @@ postAdminAddProduct = async (req, res) => {
   const file = req.file.filename;
   const enteredTitle = req.body.title;
   const enteredSummary = req.body.summary;
-  const enteredPrice = req.body.price;
+  const enteredPrice = +req.body.price;
   const enteredDescription = req.body.description;
 
   if (
