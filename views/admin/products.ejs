@@ -23,8 +23,8 @@
                 </div>
                 <div class="btns">
                     <a href="/admin/update-product/<%= product._id %>" class="btn">Update</a>
-                    <form action="/admin/products" method="POST">
-                        <a class="btn" href="<%= product._id %>"> Delete</a>
+                    <form action="/admin/products/<%= product._id %>" method="POST">
+                        <button class="btn"> Delete</button>
                     </form>
                 </div>
             </div>
@@ -39,8 +39,9 @@
     align-items: center;
     gap: 2rem;
 }
-.btns form a{
+.btns form button{
     background-color: rgb(255, 74, 74);
+    cursor: pointer;
 }
 a {
     text-decoration: none;

@@ -29,7 +29,7 @@ main .heading2{
 }
 #product-item img{
     width: 100%;  
-    height: 15rem;
+    height: 12rem;
     object-fit: fill; 
 }
 #product-item div{

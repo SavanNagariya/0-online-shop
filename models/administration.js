@@ -84,10 +84,13 @@ postAdminAddProduct = async (req, res) => {
   res.redirect("/admin/products");
 };
 
-deleteProduct = (req, res) => {
-  const id = req.params.id;
-
-  res.render("admin/products");
+deleteProduct = async (req, res) => {
+  if (req.params.id) {
+    const id = ObjectId(req.params.id);
+    console.log(id);
+    await db.getDb().collection("products").deleteOne({ _id: id });
+  }
+  res.redirect("/admin/products");
 };
 
 module.exports = {

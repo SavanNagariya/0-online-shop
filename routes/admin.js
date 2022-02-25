@@ -28,6 +28,6 @@ router.post(
   upload.single("image"),
   administration.postAdminAddProduct
 );
-router.post("/products", administration.deleteProduct);
+router.post("/admin/products/:id", administration.deleteProduct);
 
 module.exports = router;

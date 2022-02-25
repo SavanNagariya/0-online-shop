@@ -12,12 +12,13 @@ postLogin = async (req, res) => {
     .getDb()
     .collection("users")
     .findOne({ email: enteredEmail });
-
-  const password = await bcrypt.compare(enteredPassword, user.password);
-
+  
   if (!user.email || !password) {
     return res.redirect("/login");
   }
+
+  const password = await bcrypt.compare(enteredPassword, user.password);
+
   req.session.user = { id: user._id, email: user.email };
   (req.session.isAuthentication = true),
     req.session.save(() => {
