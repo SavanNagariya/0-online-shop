@@ -1,8 +1,17 @@
 const db = require("../data/database");
 const { ObjectId } = require("mongodb");
+const { localsName } = require("ejs");
 
 getAdminProducts = async (req, res) => {
   const products = await db.getDb().collection("products").find().toArray();
+
+  if (!res.locals.isAuth) {
+    return res.status(401).render("401");
+  }
+
+  if (!res.locals.isAdmin) {
+    return res.status(403).render("403");
+  }
 
   res.render("admin/products", { products: products });
 };
@@ -14,6 +23,13 @@ getAdminProductUpdate = async (req, res) => {
     .collection("products")
     .findOne({ _id: ObjectId(id) });
 
+  if (!res.locals.isAuth) {
+    return res.status(401).render("401");
+  }
+
+  if (!res.locals.isAdmin) {
+    return res.status(403).render("403");
+  }
   res.render("admin/update-product", { product: product });
 };
 
@@ -45,14 +61,29 @@ postAdminProductUpdate = async (req, res) => {
   } else {
     await db.getDb().collection("products").insertOne(productData);
   }
+
   res.redirect("/admin/products");
 };
 
 getAdminOrders = (req, res) => {
+  if (!res.locals.isAuth) {
+    return res.status(401).render("401");
+  }
+
+  if (!res.locals.isAdmin) {
+    return res.status(403).render("403");
+  }
   res.render("admin/orders");
 };
 
 getAdminAddProduct = (req, res) => {
+  if (!res.locals.isAuth) {
+    return res.status(401).render("401");
+  }
+
+  if (!res.locals.isAdmin) {
+    return res.status(403).render("403");
+  }
   res.render("admin/new-product");
 };
 
@@ -90,6 +121,15 @@ deleteProduct = async (req, res) => {
     console.log(id);
     await db.getDb().collection("products").deleteOne({ _id: id });
   }
+
+  if (!res.locals.isAuth) {
+    return res.status(401).render("401");
+  }
+
+  if (!res.locals.isAdmin) {
+    return res.status(403).render("403");
+  }
+
   res.redirect("/admin/products");
 };
 

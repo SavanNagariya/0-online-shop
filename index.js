@@ -28,9 +28,29 @@ app.use(
   })
 );
 
+
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use("/images/assent", express.static("images"));
+
+app.use(async function (req, res, next) {
+  const isAuth = req.session.authentication;
+  const user = req.session.user;
+
+  if (!isAuth || !user) {
+    return next();
+  }
+
+  const userDoc = await db
+    .getDb()
+    .collection("users")
+    .findOne({ _id: user.id });
+
+  const isAdmin = userDoc.isAdmin;
+  res.locals.isAdmin = isAdmin;
+  res.locals.isAuth = isAuth;
+  next();
+});
 
 app.use(routeUser);
 app.use(routeAuth);

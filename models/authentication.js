@@ -13,17 +13,25 @@ postLogin = async (req, res) => {
     .collection("users")
     .findOne({ email: enteredEmail });
   
-  if (!user.email || !password) {
+  if (!user.email || !enteredPassword) {
     return res.redirect("/login");
   }
 
   const password = await bcrypt.compare(enteredPassword, user.password);
 
   req.session.user = { id: user._id, email: user.email };
-  (req.session.isAuthentication = true),
+  if (res.locals.isAdmin) {
     req.session.save(() => {
-      res.redirect("/my-orders");
+      res.redirect("/admin/products");
+      return;
     });
+  }
+  res.locals.iaAuth;
+  req.session.save(() => {
+    res.redirect("/my-orders");
+    return;
+  });
+
 };
 
 getSignup = (req, res) => {
