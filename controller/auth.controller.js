@@ -1,3 +1,4 @@
+const User = require("../models/authentication");
 const db = require("../data/database");
 const bcrypt = require("bcryptjs");
 
@@ -37,7 +38,7 @@ getSignup = (req, res) => {
   res.render("signup");
 };
 
-postSignup = async (req, res) => {
+postSignup = async (req, res, next) => {
   const enteredEmail = req.body.email;
   const enteredConfirmEmail = req.body.confirmEmail;
   const enteredPassword = req.body.password;
@@ -46,6 +47,7 @@ postSignup = async (req, res) => {
   const enteredPostalcode = req.body.postalcode;
   const enteredCity = req.body.city;
 
+  const user = new User(req.body);
   if (
     !enteredEmail ||
     !enteredPassword ||
@@ -61,16 +63,8 @@ postSignup = async (req, res) => {
     return res.redirect("/signup");
   }
 
-  const hashedPassword = await bcrypt.hash(enteredPassword, 12);
+  await user.signup();
 
-  await db.getDb().collection("users").insertOne({
-    email: enteredEmail,
-    password: hashedPassword,
-    name: enteredName,
-    street: enteredStreet,
-    postalcode: enteredPostalcode,
-    city: enteredCity,
-  });
   res.redirect("/login");
 };
 logout = (req, res) => {
