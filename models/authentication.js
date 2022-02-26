@@ -9,6 +9,10 @@ class User {
     this.postalcode = userData.postalcode;
     this.city = userData.city;
   }
+  login() {
+    db.getDb().collection("users").findOne({ email: this.email });
+    return;
+  }
 
   async signup() {
     const hashedPassword = await bcrypt.hash(this.password, 12);
@@ -22,6 +26,10 @@ class User {
       city: this.city,
     };
     await db.getDb().collection("users").insertOne(users);
+  }
+
+  comparePassword(userPassword) {
+    return bcrypt.compare(this.password, userPassword);
   }
 }
 

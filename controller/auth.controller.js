@@ -1,36 +1,30 @@
 const User = require("../models/authentication");
+const authSession = require("../util/authentication");
 const db = require("../data/database");
 const bcrypt = require("bcryptjs");
 
 getLogin = (req, res) => {
   res.render("login");
 };
+
 postLogin = async (req, res) => {
-  const enteredEmail = req.body.email;
-  const enteredPassword = req.body.password;
+  const user = new User(req.body);
 
-  const user = await db
-    .getDb()
-    .collection("users")
-    .findOne({ email: enteredEmail });
+  const existingUser = await user.login();
 
-  if (!user.email || !enteredPassword) {
+  if (!existingUser) {
     return res.redirect("/login");
   }
 
-  const password = await bcrypt.compare(enteredPassword, user.password);
+  const correctPassword = await user.comparePassword(existingUser.password);
+  console.log(correctPassword, existingUser);
 
-  req.session.user = { id: user._id, email: user.email };
-  if (res.locals.isAdmin) {
-    req.session.save(() => {
-      res.redirect("/admin/products");
-      return;
-    });
+  if (!correctPassword) {
+    return res.redirect("/login");
   }
-  res.locals.iaAuth;
-  req.session.save(() => {
+
+  authSession.createAuthSession(req, existingUser, () => {
     res.redirect("/my-orders");
-    return;
   });
 };
 
