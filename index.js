@@ -9,6 +9,7 @@ const routeAuth = require("./routes/auth");
 const routeUser = require("./routes/user");
 const routeAdmin = require("./routes/admin");
 const addCsrfAttackToken = require("./middleware/csrfAttackToken");
+const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 
@@ -59,6 +60,8 @@ app.use(async function (req, res, next) {
 app.use(routeUser);
 app.use(routeAuth);
 app.use(routeAdmin);
+
+app.use(errorHandler);
 
 db.connection().then(function () {
   app.listen(2000);
