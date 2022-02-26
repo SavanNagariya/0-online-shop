@@ -9,9 +9,9 @@ class User {
     this.postalcode = userData.postalcode;
     this.city = userData.city;
   }
+
   login() {
-    db.getDb().collection("users").findOne({ email: this.email });
-    return;
+    return db.getDb().collection("users").findOne({ email: this.email });
   }
 
   async signup() {

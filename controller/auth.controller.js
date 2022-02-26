@@ -9,6 +9,7 @@ getLogin = (req, res) => {
 
 postLogin = async (req, res) => {
   const user = new User(req.body);
+  console.log(user);
 
   const existingUser = await user.login();
 
