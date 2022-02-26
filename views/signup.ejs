@@ -5,6 +5,7 @@
     <%- include('shared/header.ejs') %> 
     <main>
         <form id="signup-form" action="" method="POST">
+            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
             <h2>Signup</h2>
             <div id="form-item">
                 <label for="email">Email</label>

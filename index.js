@@ -1,14 +1,16 @@
 const express = require("express");
 const path = require("path");
-const db = require("./data/database");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const csrf = require("csurf");
 
-const app = express();
-
+const db = require("./data/database");
 const routeAuth = require("./routes/auth");
 const routeUser = require("./routes/user");
 const routeAdmin = require("./routes/admin");
+const addCsrfAttackToken = require("./middleware/csrfAttackToken");
+
+const app = express();
 
 const storeDb = new MongoDBStore({
   url: "mongodb://localhost:27017",
@@ -28,10 +30,12 @@ app.use(
   })
 );
 
-
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use("/images/assent", express.static("images"));
+
+app.use(csrf());
+app.use(addCsrfAttackToken);
 
 app.use(async function (req, res, next) {
   const isAuth = req.session.authentication;
