@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const session = require("express-session");
-
 const csrf = require("csurf");
 
 const db = require("./data/database");
@@ -31,7 +30,7 @@ app.use(routeUser);
 app.use(routeAuth);
 app.use(routeAdmin);
 
-app.use(errorHandler);
+// app.use(errorHandler);
 db.connection().then(function () {
   app.listen(2000);
 });

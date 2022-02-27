@@ -5,7 +5,7 @@
     <%- include('../shared/header.ejs') %> 
     <main id="add-form">
         <form  action="" method="POST" enctype="multipart/form-data">
-              <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
              <h3>Product Update Manage</h3>
             <div id="form-item">
                 <label for="title">Title</label>
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div id="form-item">
-                <button class="btn">Update image</button>
+                <button class="btn">Update</button>
             </div>
         </form>
     </main>
