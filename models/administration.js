@@ -1,6 +1,5 @@
 const db = require("../data/database");
 const { ObjectId } = require("mongodb");
-const { localsName } = require("ejs");
 
 getAdminProducts = async (req, res) => {
   const products = await db.getDb().collection("products").find().toArray();
@@ -8,7 +7,6 @@ getAdminProducts = async (req, res) => {
   if (!res.locals.isAuth) {
     return res.status(401).render("401");
   }
-
   if (!res.locals.isAdmin) {
     return res.status(403).render("403");
   }
@@ -34,7 +32,6 @@ getAdminProductUpdate = async (req, res) => {
 };
 
 postAdminProductUpdate = async (req, res) => {
-  // const updateData = Object.assign({});
   let file;
   if (req.file) {
     file = req.file.filename;
@@ -105,20 +102,21 @@ postAdminAddProduct = async (req, res) => {
     return;
   }
 
-  await db.getDb().collection("products").insertOne({
+  const addProduct = {
     title: enteredTitle,
     summary: enteredSummary,
     price: enteredPrice,
     description: enteredDescription,
     filePath: file,
-  });
+  };
+
+  await db.getDb().collection("products").insertOne(addProduct);
   res.redirect("/admin/products");
 };
 
 deleteProduct = async (req, res) => {
   if (req.params.id) {
     const id = ObjectId(req.params.id);
-    console.log(id);
     await db.getDb().collection("products").deleteOne({ _id: id });
   }
 

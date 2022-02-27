@@ -20,7 +20,7 @@ postLogin = async (req, res) => {
   if (!correctPassword) {
     return res.redirect("/login");
   }
-  if (!existingUser.isAdmin) {
+  if (!req.session.isAdmin) {
     authSession.createAuthSession(req, existingUser, () => {
       res.redirect("/admin/products");
     });

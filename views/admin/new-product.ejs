@@ -4,9 +4,9 @@
 <body>
     <%- include('../shared/header.ejs') %> 
     <main>
-        <form id="add-form" action="" method="POST" enctype="multipart/form-data">
-              <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
-             <h3>Add new product</h3>
+        <form id="add-form" action="/admin/products" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+            <h3>Add new product</h3>
             <div id="form-item">
                 <label for="title">Title</label>
                 <input id="title" type="text" name="title" required>
@@ -26,7 +26,6 @@
             <div id="form-image">
                 <label for="price">Image</label>
                 <div>
-                    <img id="preview-image" src="" alt="Product image">
                     <input id="image" type="file" name="image" required>
                 </div>
             </div>
