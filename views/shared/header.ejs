@@ -2,13 +2,16 @@
     <div><a href="/">Online Shop</a></div>
     <nav>
         <ul>
-            <li><a href="/">Products</a></li>
-            <li><a href="/shopping-cart">Cart </a></li>
+            <% if (!locals.isAdmin) { %> 
+                <li><a href="/">Products</a></li>
+                <li><a href="/shopping-cart">Cart </a></li>
             <% if (locals.isAuth) { %> 
                 <li><a href="/my-orders">My Orders</a></li>
+            <% } }%> 
+            <% if (locals.isAdmin) { %> 
+                <li><a href="/admin/products">Products Manage</a></li>
+                <li><a href="/admin/orders">Orders Manage</a></li>
             <% } %> 
-            <li><a href="/admin/products">Products Manage</a></li>
-            <li><a href="/admin/orders">Orders Manage</a></li>
             <% if (!locals.isAuth) { %> 
                 <li><a href="/signup">Signup</a></li>
                 <li><a href="/login">Login</a></li>

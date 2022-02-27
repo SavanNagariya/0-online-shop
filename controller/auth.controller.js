@@ -20,6 +20,12 @@ postLogin = async (req, res) => {
   if (!correctPassword) {
     return res.redirect("/login");
   }
+  if (!existingUser.isAdmin) {
+    authSession.createAuthSession(req, existingUser, () => {
+      res.redirect("/admin/products");
+    });
+    return;
+  }
   authSession.createAuthSession(req, existingUser, () => {
     res.redirect("/my-orders");
   });
