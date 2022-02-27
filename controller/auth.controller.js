@@ -16,7 +16,6 @@ postLogin = async (req, res) => {
   }
 
   const correctPassword = await user.comparePassword(existingUser.password);
-  console.log(correctPassword, existingUser);
 
   if (!correctPassword) {
     return res.redirect("/login");

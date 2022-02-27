@@ -15,6 +15,10 @@ getProductDetails = async (req, res) => {
   res.render("user/product-details", { product: product });
 };
 getMyOrders = (req, res) => {
+  if (!req.session.user) {
+    res.status(404).render("404");
+    return;
+  }
   res.render("user/my-orders");
 };
 getShopCart = (req, res) => {

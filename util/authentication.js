@@ -4,8 +4,8 @@ createAuthSession = (req, user, save) => {
 };
 
 authLogout = (req) => {
-  req.session.uid = null;
-  req.session.isAuth = false;
+  req.session.user = null;
+  req.locals.isAuth = false;
 };
 
 module.exports = {
