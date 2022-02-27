@@ -1,7 +1,6 @@
 const User = require("../models/authentication");
 const authSession = require("../util/authentication");
-const db = require("../data/database");
-const bcrypt = require("bcryptjs");
+
 
 getLogin = (req, res) => {
   res.render("login");
@@ -9,7 +8,6 @@ getLogin = (req, res) => {
 
 postLogin = async (req, res) => {
   const user = new User(req.body);
-  console.log(user);
 
   const existingUser = await user.login();
 
@@ -23,7 +21,6 @@ postLogin = async (req, res) => {
   if (!correctPassword) {
     return res.redirect("/login");
   }
-
   authSession.createAuthSession(req, existingUser, () => {
     res.redirect("/my-orders");
   });
@@ -63,9 +60,8 @@ postSignup = async (req, res, next) => {
   res.redirect("/login");
 };
 logout = (req, res) => {
-  req.session.user = null;
-  req.session.isAuthentication = false;
-  res.redirect("/");
+  authSession.authLogout(req);
+  res.redirect("/login");
 };
 
 module.exports = {

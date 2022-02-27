@@ -2,26 +2,19 @@
     <div><a href="/">Online Shop</a></div>
     <nav>
         <ul>
-            <% if(!locals.isAdmin) { %>
             <li><a href="/">Products</a></li>
             <li><a href="/shopping-cart">Cart </a></li>
-            <% } %> 
-            <% if(locals.isAuth && !locals.isAdmin) { %>
-                <li><a href="/my-orders">My Orders</a></li>
-            <% } %> 
-            <% if(locals.isAuth) { %>
-                <li><form action="/logout" method="POST"><button>Logout</button></form></li>
-            <% } %>
-            
-            <% if(locals.isAdmin) { %> 
-                <li><a href="/admin/products">Products Manage</a></li>
-                <li><a href="/admin/orders">Orders Manage</a></li>
-            <% } %> 
-
-            <% if (!locals.isAuth) { %>
-                <li><a href="/signup">Signup</a></li>
-                <li><a href="/login">Login</a></li>
-            <%} %> 
+            <li><a href="/my-orders">My Orders</a></li>
+            <li><a href="/admin/products">Products Manage</a></li>
+            <li><a href="/admin/orders">Orders Manage</a></li>
+            <li><a href="/signup">Signup</a></li>
+            <li><a href="/login">Login</a></li>
+           
+                <li><form action="/logout" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+                    <button>Logout</button>
+                </form></li>
+          
         </ul>
     </nav>
     

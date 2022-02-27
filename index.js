@@ -11,6 +11,7 @@ const routeUser = require("./routes/user");
 const routeAdmin = require("./routes/admin");
 const addCsrfAttackToken = require("./middleware/csrfAttackToken");
 const errorHandler = require("./middleware/errorHandler");
+const checkAuthStatus = require("./middleware/checkAuth");
 
 const app = express();
 
@@ -24,32 +25,13 @@ app.use("/images/assent", express.static("images"));
 app.use(session(sessionConfig()));
 app.use(csrf());
 app.use(addCsrfAttackToken);
-
-app.use(async function (req, res, next) {
-  const isAuth = req.session.authentication;
-  const user = req.session.user;
-
-  if (!isAuth || !user) {
-    return next();
-  }
-
-  const userDoc = await db
-    .getDb()
-    .collection("users")
-    .findOne({ _id: user.id });
-
-  const isAdmin = userDoc.isAdmin;
-  res.locals.isAdmin = isAdmin;
-  res.locals.isAuth = isAuth;
-  next();
-});
+app.use(checkAuthStatus);
 
 app.use(routeUser);
 app.use(routeAuth);
 app.use(routeAdmin);
 
 app.use(errorHandler);
-
 db.connection().then(function () {
   app.listen(2000);
 });
