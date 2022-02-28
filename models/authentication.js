@@ -13,7 +13,13 @@ class User {
   login() {
     return db.getDb().collection("users").findOne({ email: this.email });
   }
-
+  async existsAlready() {
+    const exists = await this.login();
+    if (exists) {
+      return true;
+    }
+    return false;
+  }
   async signup() {
     const hashedPassword = await bcrypt.hash(this.password, 12);
 

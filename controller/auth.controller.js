@@ -1,15 +1,21 @@
 const User = require("../models/authentication");
 const authSession = require("../util/authentication");
-
+const validation = require("../util/validation");
 
 getLogin = (req, res) => {
   res.render("login");
 };
 
-postLogin = async (req, res) => {
+postLogin = async (req, res, next) => {
   const user = new User(req.body);
 
-  const existingUser = await user.login();
+  try {
+    const existingUser = await user.login();
+  } catch (error) {
+    console.log("postLogin");
+    next(error);
+    return;
+  }
 
   if (!existingUser) {
     return res.redirect("/login");
@@ -36,32 +42,39 @@ getSignup = (req, res) => {
 };
 
 postSignup = async (req, res, next) => {
-  const enteredEmail = req.body.email;
-  const enteredConfirmEmail = req.body.confirmEmail;
-  const enteredPassword = req.body.password;
-  const enteredName = req.body.name;
-  const enteredStreet = req.body.street;
-  const enteredPostalcode = req.body.postalcode;
-  const enteredCity = req.body.city;
+  if (
+    !validation.userInputValid(
+      req.body.email,
+      req.body.password,
+      req.body.name,
+      req.body.postalcode,
+      req.body.street,
+      req.body.city
+    ) ||
+    validation.confirmationEmail(req.body.email, req.body.emailConfirm)
+  ) {
+    res.redirect("/signup");
+    return;
+  }
+  console.log(
+    validation.confirmationEmail(req.body.email, req.body.emailConfirm)
+  );
 
   const user = new User(req.body);
-  if (
-    !enteredEmail ||
-    !enteredPassword ||
-    enteredPassword.trim().length < 6 ||
-    !enteredConfirmEmail ||
-    !enteredName ||
-    !enteredPostalcode ||
-    !enteredStreet ||
-    !enteredCity ||
-    enteredEmail !== enteredConfirmEmail ||
-    !enteredEmail.includes("@")
-  ) {
-    return res.redirect("/signup");
+
+  try {
+    const existsAlready = await user.existsAlready();
+    if (existsAlready) {
+      res.redirect("/signup");
+      return;
+    }
+
+    await user.signup();
+  } catch (error) {
+    console.log("signup");
+    next(error);
+    return;
   }
-
-  await user.signup();
-
   res.redirect("/login");
 };
 logout = (req, res) => {
