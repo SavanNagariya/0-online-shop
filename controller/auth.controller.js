@@ -20,15 +20,15 @@ postLogin = async (req, res) => {
   if (!correctPassword) {
     return res.redirect("/login");
   }
-  if (!req.session.isAdmin) {
+  if (req.session.isAdmin) {
     authSession.createAuthSession(req, existingUser, () => {
       res.redirect("/admin/products");
     });
-    return;
+  } else {
+    authSession.createAuthSession(req, existingUser, () => {
+      res.redirect("/");
+    });
   }
-  authSession.createAuthSession(req, existingUser, () => {
-    res.redirect("/my-orders");
-  });
 };
 
 getSignup = (req, res) => {
