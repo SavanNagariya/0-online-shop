@@ -8,9 +8,9 @@ getLogin = (req, res) => {
 
 postLogin = async (req, res, next) => {
   const user = new User(req.body);
-
+  let existingUser;
   try {
-    const existingUser = await user.login();
+    existingUser = await user.login();
   } catch (error) {
     console.log("postLogin");
     next(error);
