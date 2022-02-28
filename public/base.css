@@ -15,6 +15,12 @@ main .heading2{
 .btn:hover{
     box-shadow: 1px 1px 4px rgb(160, 160, 160);
 }
+#errorMessage{
+    padding: 5px;
+    background-color: rgb(252, 177, 177);
+    color: rgb(126, 0, 0);
+    border-radius: 2px;
+}
 .product-section{
     margin: 3rem 0;
     display: grid;

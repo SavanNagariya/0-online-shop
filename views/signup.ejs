@@ -4,6 +4,7 @@
 <body>
     <%- include('shared/header.ejs') %> 
     <main>
+        <div id="errorMessage"><%= errorMessage %></div>
         <form id="signup-form" action="" method="POST">
             <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
             <h2>Signup</h2>
@@ -12,8 +13,8 @@
                 <input id="email" type="email" name="email" required>
             </div>
             <div id="form-item">
-                <label for="confirmEmail">Confirm Email</label>
-                <input id="confirmEmail" type="email" name="confirmEmail" required>
+                <label for="confirm-email">Confirm Email</label>
+                <input id="confirm-email" type="email" name="confirm-email" required>
             </div>
             <div id="form-item">
                 <label for="password">Password</label>
