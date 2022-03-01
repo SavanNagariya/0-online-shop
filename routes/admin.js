@@ -12,14 +12,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 const router = express.Router();
 
-const administration = require("../models/administration");
+const administration = require("../controller/admin.controller");
 
 router.get("/products", administration.getAdminProducts);
 
 router.get("/update-product/:id", administration.getAdminProductUpdate);
 
 router.post(
-  "/update-product/:id",
+  "/admin/update-product/:id",
   upload.single("image"),
   administration.postAdminProductUpdate
 );
