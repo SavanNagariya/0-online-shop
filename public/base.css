@@ -42,7 +42,7 @@ margin: 0 auto;
     object-fit: fill; 
 }
 #product-item div{
-    padding: 1rem;
+    padding: 0.5rem;
 }
 #product-item  h3{
     margin: 0;

@@ -29,7 +29,7 @@ router.get("/orders", administration.getAdminOrders);
 router.get("/products/new", administration.getAdminAddProduct);
 
 router.post(
-  "/products/new",
+  "/products",
   upload.single("image"),
   administration.postAdminAddProduct
 );
