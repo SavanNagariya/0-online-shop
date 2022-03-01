@@ -4,8 +4,10 @@
 <body>
     <%- include('shared/header.ejs') %> 
     <main>
-        <div id="errorMessage"><%= existingUser.errorMessage %></div>
         <form id="login-form" action="" method="POST">
+            <% if(existingUser.errorMessage){ %> 
+              <p id="errorMessage"><%= existingUser.errorMessage %></p>
+            <% } %> 
             <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
             <h2>Login</h2>
             <div id="form-item">

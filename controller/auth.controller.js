@@ -4,7 +4,7 @@ const validation = require("../util/validation");
 const flashSession = require("../util/sessionFlash");
 
 getLogin = (req, res) => {
-  const existingUser = flashSession.getFlashSession(req);
+  let existingUser = flashSession.getFlashSession(req);
 
   if (!existingUser) {
     existingUser = {
@@ -70,8 +70,7 @@ postLogin = async (req, res, next) => {
 };
 
 getSignup = (req, res) => {
-  const sessionData = flashSession.getFlashSession(req);
-
+  let sessionData = flashSession.getFlashSession(req);
   if (!sessionData) {
     sessionData = {
       email: "",
@@ -84,7 +83,7 @@ getSignup = (req, res) => {
     };
   }
 
-  res.render("signup", { errorMessage: sessionData });
+  res.render("signup", { existingUser: sessionData });
 };
 
 postSignup = async (req, res, next) => {
@@ -97,7 +96,6 @@ postSignup = async (req, res, next) => {
     street: req.body.street,
     city: req.body.city,
   };
-  console.log(enterData);
   if (
     !validation.userInputValid(
       req.body.email,

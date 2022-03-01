@@ -1,6 +1,8 @@
 getFlashSession = (req) => {
   const authData = req.session.authData;
+
   req.session.authData = null;
+
   return authData;
 };
 
