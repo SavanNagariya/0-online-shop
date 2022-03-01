@@ -4,8 +4,7 @@
 <body>
     <%- include('../shared/header.ejs') %> 
     <main>
-        <form id="add-form" action="/admin/products" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+       <form id="add-form" action="/admin/products?_csrf=<%= locals.csrfToken %>" method="POST" enctype="multipart/form-data">
             <h3>Add new product</h3>
             <div id="form-item">
                 <label for="title">Title</label>

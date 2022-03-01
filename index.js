@@ -28,7 +28,7 @@ app.use(checkAuthStatus);
 
 app.use(routeUser);
 app.use(routeAuth);
-app.use(routeAdmin);
+app.use("/admin", routeAdmin);
 
 // app.use(errorHandler);
 db.connection().then(function () {
