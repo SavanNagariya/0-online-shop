@@ -35,7 +35,7 @@ postAdminProductUpdate = async (req, res, next) => {
   });
 
   if (req.file) {
-    Product.replaceImage(req.file.filename);
+    product.replaceImage(req.file.filename);
   }
 
   try {
