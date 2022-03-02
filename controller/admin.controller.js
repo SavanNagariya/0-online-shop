@@ -85,21 +85,19 @@ postAdminAddProduct = async (req, res, next) => {
   res.redirect("/admin/products");
 };
 
-deleteProduct = async (req, res) => {
-  if (req.params.id) {
-    const id = ObjectId(req.params.id);
-    await db.getDb().collection("products").deleteOne({ _id: id });
+deleteProduct = async (req, res, next) => {
+  let product;
+  try {
+    console.log(req.params.id);
+    product = await Product.findById(req.params.id);
+    await product.remove();
+  } catch (error) {
+    console.log("delete error");
+    next(error);
+    return;
   }
 
-  if (!res.locals.isAuth) {
-    return res.status(401).render("401");
-  }
-
-  if (!res.locals.isAdmin) {
-    return res.status(403).render("403");
-  }
-
-  res.redirect("/admin/products");
+  res.json({ message: "Delete Product" });
 };
 
 module.exports = {

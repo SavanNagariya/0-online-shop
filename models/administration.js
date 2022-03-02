@@ -61,6 +61,12 @@ class Product {
   replaceImage(newImage) {
     this.image = newImage;
   }
+
+  remove() {
+    const productId = ObjectId(this.id);
+    return db.getDb().collection("products").deleteOne({ _id: productId });
+  }
 }
 
 module.exports = Product;
+

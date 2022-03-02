@@ -7,9 +7,9 @@ preview = () => {
     imagePreviewElement.style.display = "none";
     return;
   }
-  console.log(files[0]);
-  imagePreviewElement.src = URL.createObjectURL(files[0]);
-  imagePreviewElement.style.display = "block";
+ const pickFile = files[0];
+ imagePreviewElement.src = URL.createObjectURL(pickFile);
+ imagePreviewElement.style.display = "block";
 };
 
 fileImageElement.addEventListener("change", preview);

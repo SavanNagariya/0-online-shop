@@ -34,6 +34,6 @@ router.post(
   administration.postAdminAddProduct
 );
 
-router.post("/products/:id", administration.deleteProduct);
+router.delete("/products/:id", administration.deleteProduct);
 
 module.exports = router;
