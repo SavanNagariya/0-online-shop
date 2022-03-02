@@ -16,11 +16,7 @@ getAdminProducts = async (req, res) => {
 };
 
 getAdminProductUpdate = async (req, res) => {
-  const id = req.params.id;
-  const product = await db
-    .getDb()
-    .collection("products")
-    .findOne({ _id: ObjectId(id) });
+  const product = await Product.findById(req.params.id);
 
   if (!res.locals.isAuth) {
     return res.status(401).render("401");
@@ -32,36 +28,23 @@ getAdminProductUpdate = async (req, res) => {
   res.render("admin/update-product", { product: product });
 };
 
-postAdminProductUpdate = async (req, res) => {
-  let image;
+postAdminProductUpdate = async (req, res, next) => {
+  const product = new Product({
+    ...req.body,
+    _id: req.params.id,
+  });
 
   if (req.file) {
-    image = req.file;
-  }
-  const productData = {
-    title: req.body.title,
-    summary: req.body.summary,
-    price: req.body.price,
-    description: req.body.description,
-    image: image.filename,
-  };
-
-  console.log(req.params.id);
-  if (req.params.id) {
-    const id = ObjectId(req.params.id);
-
-    if (!productData.image) {
-      delete productData.image;
-    }
-
-    await db
-      .getDb()
-      .collection("products")
-      .updateOne({ _id: id }, { $set: productData });
-  } else {
-    await db.getDb().collection("products").insertOne(productData);
+    Product.replaceImage(req.file.filename);
   }
 
+  try {
+    await product.save();
+  } catch (error) {
+    console.log("server update");
+    next(error);
+    return;
+  }
   res.redirect("/admin/products");
 };
 
@@ -94,7 +77,7 @@ postAdminAddProduct = async (req, res, next) => {
   });
 
   try {
-    await product.addProduct();
+    await product.save();
   } catch (error) {
     next(error);
     return;
