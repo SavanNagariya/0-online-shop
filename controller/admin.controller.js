@@ -3,7 +3,7 @@ const { ObjectId } = require("mongodb");
 const Product = require("../models/administration");
 
 getAdminProducts = async (req, res) => {
-  const products = await db.getDb().collection("products").find().toArray();
+  const products = await Product.findAll();
 
   if (!res.locals.isAuth) {
     return res.status(401).render("401");
@@ -33,23 +33,25 @@ getAdminProductUpdate = async (req, res) => {
 };
 
 postAdminProductUpdate = async (req, res) => {
-  let file;
+  let image;
+
   if (req.file) {
-    file = req.file.filename;
+    image = req.file;
   }
   const productData = {
     title: req.body.title,
     summary: req.body.summary,
     price: req.body.price,
     description: req.body.description,
-    filePath: file,
+    image: image.filename,
   };
 
+  console.log(req.params.id);
   if (req.params.id) {
     const id = ObjectId(req.params.id);
 
-    if (!productData.filePath) {
-      delete productData.filePath;
+    if (!productData.image) {
+      delete productData.image;
     }
 
     await db
@@ -88,7 +90,7 @@ getAdminAddProduct = (req, res) => {
 postAdminAddProduct = async (req, res, next) => {
   const product = new Product({
     ...req.body,
-    file: req.file.filename,
+    image: req.file.filename,
   });
 
   try {

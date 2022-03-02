@@ -19,7 +19,7 @@ router.get("/products", administration.getAdminProducts);
 router.get("/update-product/:id", administration.getAdminProductUpdate);
 
 router.post(
-  "/admin/update-product/:id",
+  "/update-product/:id",
   upload.single("image"),
   administration.postAdminProductUpdate
 );

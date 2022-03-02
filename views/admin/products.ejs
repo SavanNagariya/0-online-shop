@@ -12,7 +12,7 @@
         <section class="product-section">
             <% for (product of products) {  %> 
             <div id="product-item">
-                <img src="/images/assent/<%= product.filePath %>" alt="Product image">
+                <img src="/images/assent/<%= product.image %>" alt="Product image">
                 <div>
                     <div class="heading">
                         <h3><%= product.title %></h3>
@@ -22,8 +22,8 @@
                     <div class="text"><%= product.description %></div>
                 </div>
                 <div class="btns">
-                    <a href="/admin/update-product/<%= product._id %>" class="btn">Update</a>
-                    <form action="/admin/products/<%= product._id %>?_csrf=<%= locals.csrfToken %>" method="POST">
+                    <a href="/admin/update-product/<%= product.id %>" class="btn">Update</a>
+                    <form action="/admin/products/<%= product.id %>?_csrf=<%= locals.csrfToken %>" method="POST">
                         <button class="btn"> Delete</button>
                     </form>
                 </div>

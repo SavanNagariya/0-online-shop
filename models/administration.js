@@ -5,7 +5,17 @@ class Product {
     this.summary = requireData.summary;
     this.price = +requireData.price;
     this.description = requireData.description;
-    this.file = requireData.file;
+    this.image = requireData.image;
+    if (requireData._id) {
+      this.id = requireData._id.toString();
+    }
+  }
+  static async findAll() {
+    const products = await db.getDb().collection("products").find().toArray();
+
+    return products.map((plist) => {
+      return new Product(plist);
+    });
   }
 
   async addProduct() {
@@ -14,7 +24,7 @@ class Product {
       summary: this.summary,
       price: this.price,
       description: this.description,
-      filePath: this.file,
+      image: this.image,
     };
 
     await db.getDb().collection("products").insertOne(addProduct);
