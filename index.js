@@ -8,6 +8,7 @@ const sessionConfig = require("./config/session");
 const routeAuth = require("./routes/auth");
 const routeUser = require("./routes/user");
 const routeAdmin = require("./routes/admin");
+const cartSessionMiddleware = require("./middleware/cartSession");
 const protectRouteMiddleware = require("./middleware/protect-route");
 const addCsrfAttackToken = require("./middleware/csrfAttackToken");
 const errorHandler = require("./middleware/errorHandler");
@@ -24,6 +25,7 @@ app.use("/images/assent", express.static("images"));
 
 app.use(session(sessionConfig()));
 app.use(csrf());
+app.use(cartSessionMiddleware);
 app.use(addCsrfAttackToken);
 app.use(checkAuthStatus);
 
