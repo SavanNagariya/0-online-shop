@@ -7,7 +7,7 @@
         <h2 class="heading2">Our All Products</h2>
         <section class="product-section">
             <% for (product of products) { %> 
-                <a href="/product-detail/<%= product._id %>">
+                <a href="/product-detail/<%= product.id %>">
                     <div id="product-item">
                         <img src="/images/assent/<%= product.image %>" alt="Product image">
                         <div>

@@ -3,7 +3,7 @@ const Product = require("../models/administration");
 getHome = async (req, res, next) => {
   try {
     const products = await Product.findAll();
-    res.render("admin/products", { products: products });
+    res.render("user/products", { products: products });
   } catch (error) {
     console.log(error + "find all products");
     next(error);
@@ -13,7 +13,7 @@ getHome = async (req, res, next) => {
 getProductDetails = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
-    res.render("admin/update-product", { product: product });
+    res.render("user/product-details", { product: product });
   } catch (error) {
     console.log(error + "find product");
     next(error);

@@ -11,6 +11,7 @@ class Product {
       this.id = requireData._id.toString();
     }
   }
+
   static async findById(productId) {
     let prodId;
     try {
