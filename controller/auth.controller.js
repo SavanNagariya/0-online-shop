@@ -58,15 +58,9 @@ postLogin = async (req, res, next) => {
     );
     return;
   }
-  if (req.session.isAdmin) {
-    authSession.createAuthSession(req, existingUser, () => {
-      res.redirect("/admin/products");
-    });
-  } else {
-    authSession.createAuthSession(req, existingUser, () => {
-      res.redirect("/");
-    });
-  }
+  authSession.createAuthSession(req, existingUser, () => {
+    res.redirect("/");
+  });
 };
 
 getSignup = (req, res) => {

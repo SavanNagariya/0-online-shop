@@ -4,27 +4,12 @@ const Product = require("../models/administration");
 
 getAdminProducts = async (req, res) => {
   const products = await Product.findAll();
-
-  if (!res.locals.isAuth) {
-    return res.status(401).render("401");
-  }
-  if (!res.locals.isAdmin) {
-    return res.status(403).render("403");
-  }
-
   res.render("admin/products", { products: products });
 };
 
 getAdminProductUpdate = async (req, res) => {
   const product = await Product.findById(req.params.id);
 
-  if (!res.locals.isAuth) {
-    return res.status(401).render("401");
-  }
-
-  if (!res.locals.isAdmin) {
-    return res.status(403).render("403");
-  }
   res.render("admin/update-product", { product: product });
 };
 
@@ -49,24 +34,10 @@ postAdminProductUpdate = async (req, res, next) => {
 };
 
 getAdminOrders = (req, res) => {
-  if (!res.locals.isAuth) {
-    return res.status(401).render("401");
-  }
-
-  if (!res.locals.isAdmin) {
-    return res.status(403).render("403");
-  }
   res.render("admin/orders");
 };
 
 getAdminAddProduct = (req, res) => {
-  if (!res.locals.isAuth) {
-    return res.status(401).render("401");
-  }
-
-  if (!res.locals.isAdmin) {
-    return res.status(403).render("403");
-  }
   res.render("admin/new-product");
 };
 

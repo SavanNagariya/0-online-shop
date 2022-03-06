@@ -8,6 +8,7 @@ const sessionConfig = require("./config/session");
 const routeAuth = require("./routes/auth");
 const routeUser = require("./routes/user");
 const routeAdmin = require("./routes/admin");
+const protectRouteMiddleware = require("./middleware/protect-route");
 const addCsrfAttackToken = require("./middleware/csrfAttackToken");
 const errorHandler = require("./middleware/errorHandler");
 const checkAuthStatus = require("./middleware/checkAuth");
@@ -28,9 +29,10 @@ app.use(checkAuthStatus);
 
 app.use(routeUser);
 app.use(routeAuth);
+app.use(protectRouteMiddleware);
 app.use("/admin", routeAdmin);
 
-// app.use(errorHandler);
+app.use(errorHandler);
 db.connection().then(function () {
   app.listen(2000);
 });
