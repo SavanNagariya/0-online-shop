@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const webPages = require("../models/users");
+const webPages = require("../controller/user.controller");
 
 router.get("/", webPages.getHome);
 router.get("/product-detail/:id", webPages.getProductDetails);
