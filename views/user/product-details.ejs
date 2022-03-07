@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <%- include('../shared/head.ejs',{title:'Online Shop | Product Details'}) %> 
 <body>
     <%- include('../shared/header.ejs') %> 
@@ -14,7 +15,7 @@
                 <div><%= product.summary %></div>
                 <p><%= product.description %></p>
                 <div>M.R.P.: <b><%= product.price %></b></div>
-                <div><button class="btn">Add to Cart</button></div>
+                <div><button id="add-item" class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button></div>
             </div>
         </section>
     </main>

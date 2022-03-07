@@ -5,9 +5,15 @@ cartSession = (req, res, next) => {
   if (!req.session.cart) {
     cart = new Cart();
   } else {
-    cart = new Cart(req.session.cart.items);
+    const cartItem = req.session.cart;
+    cart = new Cart(
+      cartItem.items,
+      cartItem.totalQuantity,
+      cartItem.totalPrice
+    );
   }
   res.locals.cart = cart;
+  next();
 };
 
 module.exports = cartSession;

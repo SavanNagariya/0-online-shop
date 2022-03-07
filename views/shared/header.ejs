@@ -4,7 +4,7 @@
         <ul>
             <% if (!locals.isAdmin) { %> 
                 <li><a href="/">Products</a></li>
-                <li><a href="/shopping-cart">Cart </a></li>
+                <li><a href="/shopping-cart">Cart (<span class="cartItem"><%= locals.cart.totalQuantity %></span>)</a></li>
             <% if (locals.isAuth) { %> 
                 <li><a href="/my-orders">My Orders</a></li>
             <% } }%> 
