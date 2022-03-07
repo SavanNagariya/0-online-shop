@@ -13,29 +13,31 @@
                         <article>
                             <h3><%= item.product.title %></h3>
                             <p>
-                                ₹ <%= item.totalPrice.toFixed(2) %> <span>(₹<%= item.product.price.toFixed(2) %>)</span>
+                                ₹ <span class="item-price"><%= item.totalPrice.toFixed(2) %></span> <span class="product-price">(₹<%= item.product.price.toFixed(2) %>)</span>
                             </p>
-                            <div>
-                                <input type="number" value="<%= item.quantity %>" required>
-                                <button class="btn">update</button>   
-                            </div>
+                            <form class="item-data" data-productid="<%= item.product.id %>" data-csrf="<%= locals.csrfToken %>">
+                                <input type="number"  value="<%= item.quantity %>" required>
+                                <button class="btn" >update</button>   
+                            </form>
                         </article>
                     </li>
                 <%  } %> 
             </ul>
-            <div>
-                 <p>Total: ₹ <%= locals.cart.totalPrice.toFixed(2) %></p>
+            <div class="all-item-form">
+                 <p>Total: ₹ <span id="total-price"><%= locals.cart.totalPrice.toFixed(2) %></span></p>
                 <button class="btn">Buy Products</button>
             </div>
         </div>
     </main>
+    <script src="/scripts/item-cart.js"></script>
 </body>
 </html>
 <style>
 .cart-items{
     list-style: none;
+    padding: 0;
 }
-.cart-items p span{
+.product-price{
     font-style: italic;
     color: gray
 }
@@ -43,6 +45,7 @@
     display: flex;
     border: solid 1px #00ce67;
     border-radius: 1rem;
+    background-color: rgb(255, 255, 255);
     margin: 0.5rem;
     max-width: 40%;
 }
@@ -57,5 +60,14 @@
     font-size: 1rem;
     border: solid 1px #00ce67;
     border-radius: 0.3rem;
+}
+.all-item-form{
+    display: flex;
+    gap: 14rem;
+    align-items: center;
+}
+.all-item-form p{
+    font-weight: 700;
+    font-size: 1.5rem;
 }
 </style>
