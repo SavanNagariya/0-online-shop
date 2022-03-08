@@ -17,12 +17,15 @@
                     </div>
                     <div id="order-details">
                         <div>
+                            <% if(locals.isAdmin){ %> 
                             <a href="mailto:<%= order.userData.email %>"><%= order.userData.name %></a>
                             <p><%= order.userData.street %> (<%= order.userData.postalcode %> <%= order.userData.city %>)</p>
+                            <% } %> 
                             <% for(const item of order.productData.items) { %> 
                             <div><%= item.product.title %> - ₹<%= item.totalPrice.toFixed(2) %> (₹<%= item.product.price.toFixed(2) %> x <%= item.quantity %> )</div>
                             <% } %> 
                         </div>
+                         <% if(locals.isAdmin){ %> 
                         <form class="orders-status">
                             <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
                             <input type="hidden" name="orderid" value="<%= order.id %>">
@@ -35,6 +38,7 @@
                             </div>
                             <button class="btn">Update</button>
                         </form>
+                         <% } %> 
                     </div>
                 </article>
             </li>
@@ -77,7 +81,6 @@ article{
 }
 article a {
     text-decoration: none;
-    color: inherit;
 }
 #order-details{
     display: flex;
