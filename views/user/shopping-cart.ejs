@@ -25,7 +25,14 @@
             </ul>
             <div class="all-item-form">
                  <p>Total: ₹ <span id="total-price"><%= locals.cart.totalPrice.toFixed(2) %></span></p>
-                <button class="btn">Buy Products</button>
+                 <% if (locals.isAuth) { %> 
+                <form action="/my-orders" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+                    <button class="btn">Buy Products</button>
+                </form>
+                <% }else{ %> 
+                    <span>Login for purchase your orders </span>
+                <% } %> 
             </div>
         </div>
     </main>
@@ -61,13 +68,10 @@
     border: solid 1px #00ce67;
     border-radius: 0.3rem;
 }
-.all-item-form{
-    display: flex;
-    gap: 14rem;
-    align-items: center;
-}
+
 .all-item-form p{
     font-weight: 700;
     font-size: 1.5rem;
+    margin: 1rem 0 0 0 ;
 }
 </style>

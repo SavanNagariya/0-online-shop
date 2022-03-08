@@ -31,11 +31,15 @@ updateItemCart = async (event) => {
     alert("something went wrong");
     return;
   }
-  const responseData = await resp.json();
-
-  const cartItemTotalPrice = form.parentElement.querySelector(".item-price");
-  cartItemTotalPrice.textContent =
-    responseData.updateCartData.updatedItemPrice.toFixed(2);
+    const responseData = await resp.json();
+    if (responseData.updateCartData.updatedItemPrice === 0) {
+      form.parentElement.parentElement.remove();
+    } else {
+      const cartItemTotalPrice =
+        form.parentElement.querySelector(".item-price");
+      cartItemTotalPrice.textContent =
+        responseData.updateCartData.updatedItemPrice.toFixed(2);
+    }
 
   cartTotalPrice.textContent =
     responseData.updateCartData.newTotalPrice.toFixed(2);

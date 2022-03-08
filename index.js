@@ -8,6 +8,8 @@ const sessionConfig = require("./config/session");
 const routeAuth = require("./routes/auth");
 const routeUser = require("./routes/user");
 const routeAdmin = require("./routes/admin");
+const routeOrders = require("./routes/order");
+
 const cartSessionMiddleware = require("./middleware/cartSession");
 const protectRouteMiddleware = require("./middleware/protect-route");
 const addCsrfAttackToken = require("./middleware/csrfAttackToken");
@@ -33,6 +35,7 @@ app.use(checkAuthStatus);
 app.use(routeUser);
 app.use(routeAuth);
 app.use(protectRouteMiddleware);
+app.use(routeOrders);
 app.use("/admin", routeAdmin);
 
 app.use(errorHandler);
