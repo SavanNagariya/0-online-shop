@@ -24,8 +24,6 @@ router.post(
   administration.postAdminProductUpdate
 );
 
-router.get("/orders", administration.getAdminOrders);
-
 router.get("/products/new", administration.getAdminAddProduct);
 
 router.post(

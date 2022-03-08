@@ -2,7 +2,7 @@ const Orders = require("../models/orders");
 const Product = require("../models/authentication");
 
 getMyOrders = (req, res) => {
-  res.render("user/my-orders");
+  res.render("orders/orders");
 };
 postMyOrders = async (req, res, next) => {
   const cart = res.locals.cart;
@@ -25,7 +25,7 @@ postMyOrders = async (req, res, next) => {
   }
 
   req.session.cart = null;
-  res.redirect("/my-orders");
+  res.redirect("/orders");
 };
 
 module.exports = {

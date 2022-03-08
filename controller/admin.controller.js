@@ -42,10 +42,6 @@ postAdminProductUpdate = async (req, res, next) => {
   res.redirect("/admin/products");
 };
 
-getAdminOrders = (req, res) => {
-  res.render("admin/orders");
-};
-
 getAdminAddProduct = (req, res) => {
   res.render("admin/new-product");
 };
@@ -84,7 +80,6 @@ module.exports = {
   getAdminProducts: getAdminProducts,
   getAdminProductUpdate: getAdminProductUpdate,
   postAdminProductUpdate: postAdminProductUpdate,
-  getAdminOrders: getAdminOrders,
   getAdminAddProduct: getAdminAddProduct,
   postAdminAddProduct: postAdminAddProduct,
   deleteProduct: deleteProduct,
