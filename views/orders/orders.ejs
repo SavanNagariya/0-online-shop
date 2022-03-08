@@ -5,11 +5,95 @@
     <%- include('../shared/header.ejs') %> 
     <main>
         <div>
-            <h2 class="heading2"> Administration</h2>
-            <h3>Orders Manege</h3>
+            <h2 class="heading2"> Orders</h2>
         </div>
-        <div>
-        </div>
+        <ul>
+            <% for(const order of orders) {%> 
+            <li>
+                <article>
+                    <div id="top-section">
+                        <h3><span>₹<%= order.productData.totalPrice.toFixed(2) %> </span> - <%= order.formattedDate %> </h3>
+                        <p>Pending</p>
+                    </div>
+                    <div id="order-details">
+                        <div>
+                            <a href="mailto:<%= order.userData.email %>"><%= order.userData.name %></a>
+                            <p><%= order.userData.street %> (<%= order.userData.postalcode %> <%= order.userData.city %>)</p>
+                            <% for(const item of order.productData.items) { %> 
+                            <div><%= item.product.title %> - ₹<%= item.totalPrice.toFixed(2) %> (₹<%= item.product.price.toFixed(2) %> x <%= item.quantity %> )</div>
+                            <% } %> 
+                        </div>
+                        <form class="orders-status">
+                            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+                            <input type="hidden" name="orderid" value="<%= order.id %>">
+                            <div>
+                                <select name="status" >
+                                    <option value="pending" <% if(order.status === 'padding'){ %> selected <% } %>>Pending</option>
+                                    <option value="fulfilled" <% if(order.status === 'fulfilled'){ %> selected <% } %>>Fulfilled</option>
+                                    <option value="cancelled" <% if(order.status === 'cancelled'){ %> selected <% } %>>Cancelled</option>
+                                </select>
+                            </div>
+                            <button class="btn">Update</button>
+                        </form>
+                    </div>
+                </article>
+            </li>
+            <% } %> 
+        </ul>
     </main>
+    <script src="/scripts/orders.js"></script>
 </body>
 </html>
+<style>
+ul{
+    list-style: none;
+    padding: 0;
+}
+article{
+    margin: 0.5rem auto;
+    box-shadow: 1px 1px 2px rgb(160, 160, 160);
+    max-width: 80%;
+    background: #fff;
+    border-radius: 0.5rem;
+    padding: 0.7rem;
+}
+#top-section{
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+}
+#top-section h3{
+    margin: 0.5rem;
+}
+#top-section h3 span{
+    color: #007239;
+}
+#top-section p {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: rgb(228, 171, 15);
+    border-radius: 1rem;
+    color: #fff;
+}
+article a {
+    text-decoration: none;
+    color: inherit;
+}
+#order-details{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+#order-details p{
+    margin: 0.5rem 0;
+}
+.orders-status select{
+    border: none;
+    padding: 0.4rem ;
+    background-color: rgb(179, 179, 179);
+    border-radius: 0.3rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+}
+</style>

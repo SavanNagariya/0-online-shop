@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const db = require("../data/database");
 
 class Orders {
@@ -16,10 +17,53 @@ class Orders {
     }
     this.id = orderId;
   }
+  static formateDocumentOrder(ordersDoc) {
+    return new Orders(
+      ordersDoc.productData,
+      ordersDoc.userData,
+      ordersDoc.status,
+      ordersDoc.date,
+      ordersDoc._id
+    );
+  }
+
+  static formateDocumentOrders(ordersDoc) {
+    return ordersDoc.map(this.formateDocumentOrder);
+  }
+
+  static async findAll() {
+    const orders = await db
+      .getDb()
+      .collection("orders")
+      .find()
+      .sort({ _id: -1 })
+      .toArray();
+    return this.formateDocumentOrders(orders);
+  }
+
+  static async findAllForUser(userId) {
+    const id = ObjectId(userId);
+    const orders = await db
+      .getDb()
+      .collection("orders")
+      .find({ "userData._id": id })
+      .sort({ _id: -1 })
+      .toArray();
+    return this.formateDocumentOrders(orders);
+  }
+
+  static async findById(userId) {
+    const id = ObjectId(userId);
+    const orders = await db.getDb().collection("orders").findOne({ _id: id });
+  }
 
   save() {
     if (this.id) {
-      // updating orders
+      const id = ObjectId(this.id);
+      return db
+        .getDb()
+        .collection("orders")
+        .updateOne({ _id: id }, { $set: { status: this.status } });
     } else {
       const orderDoc = {
         productData: this.productData,

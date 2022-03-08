@@ -1,20 +1,28 @@
 const Orders = require("../models/orders");
-const Product = require("../models/authentication");
+const User = require("../models/authentication");
 
-getMyOrders = (req, res) => {
-  res.render("orders/orders");
-};
-postMyOrders = async (req, res, next) => {
-  const cart = res.locals.cart;
-  let productDoc;
+getMyOrders = async (req, res, next) => {
+  let orders;
   try {
-    productDoc = await Product.findById(res.locals.uid);
+    orders = await Orders.findAllForUser(res.locals.uid);
+    res.render("orders/orders", { orders: orders });
   } catch (error) {
-    console.log("orders productDocument is not found");
+    console.log("find all orders error");
     next(error);
     return;
   }
-  const orders = new Orders(cart, productDoc);
+};
+postMyOrders = async (req, res, next) => {
+  const cart = res.locals.cart;
+  let userDoc;
+  try {
+    userDoc = await User.findById(res.locals.uid);
+  } catch (error) {
+    console.log("orders userDocument is not found");
+    next(error);
+    return;
+  }
+  const orders = new Orders(cart, userDoc);
 
   try {
     await orders.save();
