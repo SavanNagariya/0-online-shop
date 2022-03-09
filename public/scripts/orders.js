@@ -1,32 +1,41 @@
 const formOrdersStatusElement = document.querySelectorAll(".orders-status");
 
 allOrdersStatus = async (event) => {
-  event.preventDefault();
-  const form = event.target;
-  const formData = new FormData(form);
-  const id = formData.get("orderid");
-  const status = formData.get("status");
-  const csrf = formData.get("_csrf");
-  let resp;
-  try {
-    resp = await fetch("/orders/" + id, {
-      method: "PATCH",
-      body: JSON.stringify({
-        status: status,
-        _csrf: csrf,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  } catch (error) {
-    alert("resp error");
-    return;
-  }
-  if (!resp.ok) {
-    alert("resp wrong");
-    return;
-  }
+   event.preventDefault();
+   const form = event.target;
+
+   const formData = new FormData(form);
+   const newStatus = formData.get("status");
+   const orderId = formData.get("orderid");
+   const csrfToken = formData.get("_csrf");
+   console.log(newStatus);
+   let response;
+
+   try {
+     response = await fetch(`/admin/orders/${orderId}`, {
+       method: "PATCH",
+       body: JSON.stringify({
+         newStatus: newStatus,
+         _csrf: csrfToken,
+       }),
+       headers: {
+         "Content-Type": "application/json",
+       },
+     });
+   } catch (error) {
+     alert("Something went wrong - could not update order status.");
+     return;
+   }
+
+   if (!response.ok) {
+     alert("Something went wrong - could not update order status.");
+     return;
+   }
+
+   const responseData = await response.json();
+
+   form.parentElement.parentElement.querySelector(".badge").textContent =
+     responseData.newStatus.toUpperCase();
 };
 
 for (const ordersStatus of formOrdersStatusElement) {

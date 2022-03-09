@@ -33,5 +33,7 @@ router.post(
 );
 
 router.delete("/products/:id", administration.deleteProduct);
+router.get("/orders", administration.getMyOrders);
+router.patch("/orders/:id", administration.patchOrderUpdate);
 
 module.exports = router;

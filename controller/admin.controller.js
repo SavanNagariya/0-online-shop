@@ -1,4 +1,5 @@
 const Product = require("../models/administration");
+const Orders = require("../models/orders");
 
 getAdminProducts = async (req, res, next) => {
   try {
@@ -75,6 +76,35 @@ deleteProduct = async (req, res, next) => {
 
   res.json({ message: "Delete Product" });
 };
+getMyOrders = async (req, res, next) => {
+  try {
+    const orders = await Orders.findAll();
+    res.render("admin/orders", { orders: orders });
+  } catch (error) {
+    next(error);
+  }
+};
+
+patchOrderUpdate = async (req, res, next) => {
+  const newStatus = req.body.newStatus;
+  const orderId = req.params.id;
+
+  try {
+    const order = await Orders.findById(orderId);
+    order.status = newStatus;
+
+    const all = await order.save();
+    console.log(all);
+    res.json({
+      message: "status updated",
+      newStatus: newStatus,
+    });
+  } catch (error) {
+    console.log("status update");
+    next(error);
+    return;
+  }
+};
 
 module.exports = {
   getAdminProducts: getAdminProducts,
@@ -83,4 +113,6 @@ module.exports = {
   getAdminAddProduct: getAdminAddProduct,
   postAdminAddProduct: postAdminAddProduct,
   deleteProduct: deleteProduct,
+  getMyOrders: getMyOrders,
+  patchOrderUpdate: patchOrderUpdate,
 };

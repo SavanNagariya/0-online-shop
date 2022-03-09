@@ -13,20 +13,35 @@
                 <article>
                     <div id="top-section">
                         <h3><span>₹<%= order.productData.totalPrice.toFixed(2) %> </span> - <%= order.formattedDate %> </h3>
-                        <p id="live-status">Pending</p>
+                        <p class="badge"><%= order.status.toUpperCase() %> </p>
                     </div>
                     <div id="order-details">
                         <div>
+                            <a href="mailto:<%= order.userData.email %>"><%= order.userData.name %></a>
+                            <p><%= order.userData.street %> (<%= order.userData.postalcode %> <%= order.userData.city %>)</p>
                             <% for(const item of order.productData.items) { %> 
-                                <div><%= item.product.title %> - ₹<%= item.totalPrice.toFixed(2) %> (₹<%= item.product.price.toFixed(2) %> x <%= item.quantity %> )</div>
+                            <div><%= item.product.title %> - ₹<%= item.totalPrice.toFixed(2) %> (₹<%= item.product.price.toFixed(2) %> x <%= item.quantity %> )</div>
                             <% } %> 
                         </div>
+                        <form class="orders-status">
+                            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+                            <input type="hidden" name="orderid" value="<%= order.id %>">
+                            <div>
+                                <select name="status" >
+                                    <option value="pending" <% if(order.status === 'padding'){ %> selected <% } %>>Pending</option>
+                                    <option value="fulfilled" <% if(order.status === 'fulfilled'){ %> selected <% } %>>Fulfilled</option>
+                                    <option value="cancelled" <% if(order.status === 'cancelled'){ %> selected <% } %>>Cancelled</option>
+                                </select>
+                            </div>
+                            <button class="btn">Update</button>
+                        </form>
                     </div>
                 </article>
             </li>
             <% } %> 
         </ul>
     </main>
+    <script src="/scripts/orders.js"></script>
 </body>
 </html>
 <style>

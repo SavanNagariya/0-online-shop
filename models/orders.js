@@ -55,6 +55,7 @@ class Orders {
   static async findById(userId) {
     const id = ObjectId(userId);
     const orders = await db.getDb().collection("orders").findOne({ _id: id });
+    return this.formateDocumentOrder(orders);
   }
 
   save() {
