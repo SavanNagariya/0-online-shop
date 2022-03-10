@@ -65,7 +65,6 @@ postAdminAddProduct = async (req, res, next) => {
 deleteProduct = async (req, res, next) => {
   let product;
   try {
-    console.log(req.params.id);
     product = await Product.findById(req.params.id);
     await product.remove();
   } catch (error) {

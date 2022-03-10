@@ -35,6 +35,22 @@ class Product {
     });
   }
 
+  static async findMultiple(ids) {
+    const productIds = ids.map((id) => {
+      return ObjectId(id);
+    });
+
+    const products = await db
+      .getDb()
+      .collection("products")
+      .find({ _id: { $in: productIds } })
+      .toArray();
+
+    return products.map((productList) => {
+      return new Product(productList);
+    });
+  }
+
   async save() {
     const addProduct = {
       title: this.title,

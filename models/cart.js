@@ -1,9 +1,49 @@
+const Product = require("./administration");
+
 class Cart {
   constructor(items = [], totalQuantity = 0, totalPrice = 0) {
     this.items = items;
     this.totalQuantity = totalQuantity;
     this.totalPrice = totalPrice;
   }
+
+  async updatePrices() {
+    const productIds = this.items.map((item) => {
+      return item.product.id;
+    });
+
+    const products = await Product.findMultiple(productIds);
+
+    const deleteCartProductIds = [];
+
+    for (const cartItem of this.items) {
+      const product = products.find((prod) => {
+        return (prod.id = cartItem.product.id);
+      });
+
+      if (!product) {
+        deleteCartProductIds.push(cartItem.product.id);
+        continue;
+      }
+
+      cartItem.product = product;
+      cartItem.totalPrice = cartItem.quantity * cartItem.product.price;
+    }
+
+    if (deleteCartProductIds.length > 0) {
+      this.items = this.items.filter((item) => {
+        return deleteCartProductIds.indexOf(item.product.id) < 0;
+      });
+    }
+    this.totalPrice = 0;
+    this.totalQuantity = 0;
+
+    for (const item of this.items) {
+      this.totalQuantity = this.totalQuantity + item.quantity;
+      this.totalPrice = this.totalPrice + item.totalPrice;
+    }
+  }
+
   addItem(product) {
     const cartItem = {
       product: product,

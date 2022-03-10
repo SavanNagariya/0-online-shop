@@ -11,6 +11,7 @@ const routeAdmin = require("./routes/admin");
 const routeOrders = require("./routes/order");
 
 const cartSessionMiddleware = require("./middleware/cartSession");
+const updateCartPriceMiddleware = require("./middleware/updateCartProduct");
 const protectRouteMiddleware = require("./middleware/protect-route");
 const addCsrfAttackToken = require("./middleware/csrfAttackToken");
 const errorHandler = require("./middleware/errorHandler");
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use(session(sessionConfig()));
 app.use(csrf());
 app.use(cartSessionMiddleware);
+app.use(updateCartPriceMiddleware);
 app.use(addCsrfAttackToken);
 app.use(checkAuthStatus);
 
