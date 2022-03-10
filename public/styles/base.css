@@ -18,7 +18,7 @@ main .heading2{
 }
 #errorMessage{
     padding: 0.5rem;
-margin: 0 auto;
+    margin: 0 auto;
     background-color: rgb(252, 177, 177);
     color: rgb(126, 0, 0);
     border-radius: 5px;
@@ -55,4 +55,14 @@ margin: 0 auto;
     height: 8rem;
     object-fit: contain;
     border-radius: 0.5rem;
+}
+@media (max-width: 74rem) {
+    .product-section{ 
+        grid-template-columns: 1fr 1fr 1fr ;
+    }
+}
+@media (max-width: 50rem) {
+    .product-section{
+        grid-template-columns: 1fr  ;
+    }
 }

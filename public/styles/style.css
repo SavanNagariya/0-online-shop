@@ -16,11 +16,10 @@ header{
      width: 80%;
     top: 0;
 }
-header div{
+
+header div div a {
     font-weight: 600;
     font-size: 2rem;
-}
-header div a {
     text-decoration: none;
     color: inherit;
 }
@@ -33,7 +32,6 @@ header ul{
 }
 header li{
     margin: 0 0.5rem;
-   
 }
 header nav a {
     padding: 0.5rem 1.2rem;
@@ -47,7 +45,7 @@ header nav a:hover{
     background-color: #ffffff;
     color: black;
 }
-button{
+.button{
     padding: 0.3rem 1rem;
     border: none;
     border-radius: 0.5rem;
@@ -62,4 +60,33 @@ button:hover{
 }
 main{
     padding: 0 10%;
+}
+
+@media (max-width: 50rem) {
+    header{
+        flex-direction: column;
+        padding: 0.8rem 3%;
+        width: 94%;
+    }
+    header div{
+        display: flex;
+        justify-content: space-between;
+        gap:3rem;
+    }
+    header div a{
+        font-size: 1.8rem;
+    }
+    .nav-item{
+        display: none;
+    }
+    header ul{
+        padding: 1rem;
+        flex-direction: column;
+    }
+    header li{
+       margin:  0.6rem;
+    }
+    header nav a {
+        padding: 0.3rem 0.8rem;
+    }
 }

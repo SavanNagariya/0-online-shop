@@ -1,6 +1,11 @@
 <header>
-    <div><a href="/">Online Shop</a></div>
-    <nav>
+    <div>
+        <div><a href="/">Online Shop</a></div>
+        <div>
+            <button id="menubar">|||</button>
+        </div>
+    </div>
+    <nav class="nav-item">
         <ul>
             <% if (!locals.isAdmin) { %> 
                 <li><a href="/">Products</a></li>
@@ -20,11 +25,23 @@
                 <li>
                     <form action="/logout" method="POST">
                         <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
-                        <button>Logout</button>
+                        <button class=".button">Logout</button>
                     </form>
                 </li>
             <% } %> 
         </ul>
-    </nav>
-    
+    </nav>    
 </header>
+<style>
+    header div div button{
+        display: none;
+        cursor: pointer;
+        border-radius: 1rem;
+        border: none;
+    }
+    @media (max-width: 50rem) {
+        header div div button{
+            display: block;
+        }
+    }
+</style>
