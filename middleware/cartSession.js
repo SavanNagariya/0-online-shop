@@ -12,6 +12,7 @@ cartSession = (req, res, next) => {
       cartItem.totalPrice
     );
   }
+
   res.locals.cart = cart;
   next();
 };

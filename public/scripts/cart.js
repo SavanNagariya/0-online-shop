@@ -25,6 +25,7 @@ addToCart = async () => {
     alert("Something went Wrong");
     return;
   }
+
   const responseData = await resp.json();
   const newTotalQuantity = responseData.newTotalItem;
   cartCountElement.textContent = newTotalQuantity;

@@ -18,8 +18,9 @@ class Cart {
 
     for (const cartItem of this.items) {
       const product = products.find((prod) => {
-        return (prod.id = cartItem.product.id);
+        return prod.id = cartItem.product.id;
       });
+      
 
       if (!product) {
         deleteCartProductIds.push(cartItem.product.id);
@@ -50,10 +51,11 @@ class Cart {
       quantity: 1,
       totalPrice: product.price,
     };
+
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
-      if (item.product.id === product.id) {
-        cartItem.quantity = item.quantity + 1;
+      if (item.product.id === cartItem.product.id) {
+        cartItem.quantity = +item.quantity + 1;
         cartItem.totalPrice = item.totalPrice + product.price;
         this.items[i] = cartItem;
 
@@ -62,6 +64,7 @@ class Cart {
         return;
       }
     }
+
     this.items.push(cartItem);
     this.totalQuantity++;
     this.totalPrice += product.price;

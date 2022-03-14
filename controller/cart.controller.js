@@ -17,6 +17,7 @@ addCartItem = async (req, res, next) => {
 
   cart.addItem(product);
   req.session.cart = cart;
+  // console.log((req.session.cart = cart));
 
   res.status(201).json({
     message: "updated cart",

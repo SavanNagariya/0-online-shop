@@ -13,7 +13,7 @@
                 <article>
                     <div id="top-section">
                         <h3><span>₹<%= order.productData.totalPrice.toFixed(2) %> </span> - <%= order.formattedDate %> </h3>
-                        <p id="live-status">Pending</p>
+                        <p id="live-status"><%= order.status.toUpperCase() %></p>
                     </div>
                     <div id="order-details">
                         <div>
