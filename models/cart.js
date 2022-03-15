@@ -18,7 +18,7 @@ class Cart {
 
     for (const cartItem of this.items) {
       const product = products.find((prod) => {
-        return prod.id = cartItem.product.id;
+        return prod.id === cartItem.product.id;
       });
       
 
@@ -79,9 +79,9 @@ class Cart {
         cartItem.quantity = newQuantity;
         cartItem.totalPrice = newQuantity * item.product.price;
         this.items[i] = cartItem;
-
         this.totalQuantity = this.totalQuantity + changeQuantity;
         this.totalPrice += changeQuantity * item.product.price;
+        console.log(cartItem.totalPrice);
         return { updatedItemPrice: cartItem.totalPrice };
       } else if (item.product.id === productId && newQuantity <= 0) {
         this.items.splice(i, 1);
